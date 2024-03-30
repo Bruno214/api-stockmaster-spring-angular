@@ -1,5 +1,6 @@
 package com.cederj.uff.tcc.stockmaster.infra.security;
 
+import com.cederj.uff.tcc.stockmaster.model.user.User;
 import com.cederj.uff.tcc.stockmaster.repository.user.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -29,9 +30,10 @@ public class SecurityFilter extends OncePerRequestFilter {
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
     var token = this.recoverToken(request);
-    if (token != null) {
-      var userNome = this.tokenService.validateToken(token);
-      UserDetails user = this.userRepository.findByUserName(userNome);
+    var login = this.tokenService.validateToken(token);
+
+    if (login != null) {
+      User user = this.userRepository.findByUserName(login).orElseThrow(() -> new RuntimeException("User not found"));
       var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
       SecurityContextHolder.getContext().setAuthentication(authentication);
     }

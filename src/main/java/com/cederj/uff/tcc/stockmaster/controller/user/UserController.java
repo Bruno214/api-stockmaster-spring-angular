@@ -1,19 +1,17 @@
 package com.cederj.uff.tcc.stockmaster.controller.user;
 
-import com.cederj.uff.tcc.stockmaster.DTO.authentication.RegisterUserDTO;
+import com.cederj.uff.tcc.stockmaster.DTO.user.UpdateUserDTO;
 import com.cederj.uff.tcc.stockmaster.VO.user.UserVO;
 import com.cederj.uff.tcc.stockmaster.model.user.User;
 import com.cederj.uff.tcc.stockmaster.service.user.UserService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("api/users")
 public class UserController {
 
   private final UserService userService;
@@ -23,17 +21,18 @@ public class UserController {
     this.userService = userService;
   }
 
-  @GetMapping("/falar")
-  public ResponseEntity<String> digaOlaMundo(){
-    return ResponseEntity.ok("Testando o olá mundo");
-  }
-
-  @GetMapping
+  @GetMapping("/todos")
   public ResponseEntity<List<UserVO>> findAll(){
     List<User> listUsers = this.userService.findAllUsers();
-    List<UserVO> listUsersVO = listUsers.stream().map(user -> new UserVO(user.getName(), user.getEmail(), user.getPassword())).toList();
+    List<UserVO> listUsersVO = listUsers.stream().map(user -> new UserVO(user.getName(), user.getEmail())).toList();
 
     return ResponseEntity.ok(listUsersVO);
+  }
+
+  @PutMapping("/{userId}")
+  public ResponseEntity<Void> updateUserById(@PathVariable("userId") Long id, @RequestBody UpdateUserDTO user) {
+    this.userService.updateUserById(id, user);
+    return ResponseEntity.ok().build();
   }
 
 }
