@@ -1,5 +1,7 @@
 package com.cederj.uff.tcc.stockmaster.model.user;
 
+import com.cederj.uff.tcc.stockmaster.model.inventory.Inventory;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,6 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -35,6 +38,11 @@ public class User implements UserDetails {
 
   @Column(nullable = false)
   private String password;
+
+  @OneToMany
+  @JoinColumn(name = "user_id")
+  @JsonIgnore
+  private List<Inventory> inventories = new ArrayList<>();
 
   public User(String name, String userName, String email, String password) {
     this.name = name;
