@@ -1,7 +1,7 @@
 package com.cederj.uff.tcc.stockmaster.infra.security;
 
-import com.cederj.uff.tcc.stockmaster.model.user.User;
-import com.cederj.uff.tcc.stockmaster.repository.user.UserRepository;
+import com.cederj.uff.tcc.stockmaster.models.user.User;
+import com.cederj.uff.tcc.stockmaster.repositories.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
