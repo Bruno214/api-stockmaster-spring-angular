@@ -41,7 +41,7 @@ public class AuthenticationController {
     User user = this.userRepository.findByUserName(data.userName()).orElseThrow(()->new RuntimeException("User not found"));
     if(passwordEncoder.matches(data.password(), user.getPassword())) {
       String token = this.tokenService.generateToken(user);
-      return ResponseEntity.ok(new UserResponseVO(token));
+      return ResponseEntity.ok(new UserResponseVO(user.getId(), token));
     }
     return ResponseEntity.badRequest().build();
   }
