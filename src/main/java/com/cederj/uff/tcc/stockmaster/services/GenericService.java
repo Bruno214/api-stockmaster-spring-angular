@@ -27,9 +27,9 @@ public interface GenericService<TModel extends GenericModel>{
        return getRepository().findById(id).orElseThrow(() -> new RuntimeException("O registro não foi encontrado no sistema"));
     }
 
-    default void deleteById(Long id) throws Exception {
+    default void deleteById(Long id)  {
         if(!getRepository().existsById(id)) {
-            throw new Exception("Não existe registro com este id");
+            throw new RuntimeException("Não existe registro com este id");
         }
         getRepository().deleteById(id);
     }

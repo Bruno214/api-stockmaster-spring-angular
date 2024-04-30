@@ -8,6 +8,7 @@ import com.cederj.uff.tcc.stockmaster.repositories.GenericRepository;
 import com.cederj.uff.tcc.stockmaster.repositories.inventory.InventoryRepositoy;
 import com.cederj.uff.tcc.stockmaster.repositories.user.UserRepository;
 import com.cederj.uff.tcc.stockmaster.services.inventory.InventoryService;
+import com.cederj.uff.tcc.stockmaster.vos.inventory.InventoryVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,11 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
+    public Inventory findInventoryById(Long inventoryId) {
+        return this.findById(inventoryId);
+    }
+
+    @Override
     public void updateInventoryById(Long id, UpdateInventoryDto dado) {
         System.out.println("testando o update inventory");
     }
@@ -55,4 +61,10 @@ public class InventoryServiceImpl implements InventoryService {
 
         this.inventoryRepositoy.save(inventory);
     }
+
+    @Override
+    public void delete(Long id) {
+        this.deleteById(id);
+    }
+
 }

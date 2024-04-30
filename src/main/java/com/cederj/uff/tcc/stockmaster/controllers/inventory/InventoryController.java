@@ -21,7 +21,7 @@ public class InventoryController {
     public InventoryController(InventoryServiceImpl inventoryServiceImpl) {
         this.inventoryServiceImpl = inventoryServiceImpl;
     }
-    @GetMapping("/{userId}")
+    @GetMapping("/allInventories/{userId}")
     public ResponseEntity<List<InventoryVO>> getAllInventoriesById(@PathVariable("userId") Long id) {
         List<Inventory> listInventories = this.inventoryServiceImpl.findAllByUserId(id);
         List<InventoryVO> listaResponse = listInventories.stream().map(i -> new InventoryVO(i.getName(), i.getDescription())).toList();
@@ -32,5 +32,18 @@ public class InventoryController {
     public ResponseEntity<Void> createdInventory(@PathVariable("userId") Long idUser, @RequestBody CreatedInventoryDto data) {
         this.inventoryServiceImpl.save(data, idUser);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @DeleteMapping("/delete/{inventoryId}")
+    public ResponseEntity<Void> deleteInventory(@PathVariable("inventoryId") Long idInventory){
+        this.inventoryServiceImpl.delete(idInventory);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @GetMapping("/{inventoryId}")
+    public ResponseEntity<InventoryVO> findInventoryById(@PathVariable("inventoryId") Long idInventory){
+        Inventory inventory =  this.inventoryServiceImpl.findInventoryById(idInventory);
+        InventoryVO inventoryVO = new InventoryVO(inventory.getName(), inventory.getDescription());
+        return ResponseEntity.status(HttpStatus.OK).body(inventoryVO);
     }
 }
