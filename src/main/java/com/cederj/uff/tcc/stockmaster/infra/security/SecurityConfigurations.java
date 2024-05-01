@@ -37,6 +37,8 @@ public class SecurityConfigurations {
                     .requestMatchers("v3/api-docs/**").permitAll()
                     .requestMatchers(HttpMethod.POST, "api/v1/auth/login").permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/v1/users/todos").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/api/v1/users/username/{userName}").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/api/v1/users/email/{email}").permitAll()
                     .requestMatchers(HttpMethod.POST, "api/v1/auth/register").permitAll()
                     .anyRequest().authenticated()
             )
