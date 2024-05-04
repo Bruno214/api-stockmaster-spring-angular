@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class StockmasterApplication {
 
 	public static void main(String[] args) {
+		// branch de desenvolvimento
 		SpringApplication.run(StockmasterApplication.class, args);
 	}
 
