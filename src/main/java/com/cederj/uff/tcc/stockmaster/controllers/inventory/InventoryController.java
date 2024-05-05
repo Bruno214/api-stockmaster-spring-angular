@@ -24,7 +24,7 @@ public class InventoryController {
     @GetMapping("/allInventories/{userId}")
     public ResponseEntity<List<InventoryVO>> getAllInventoriesById(@PathVariable("userId") Long id) {
         List<Inventory> listInventories = this.inventoryServiceImpl.findAllByUserId(id);
-        List<InventoryVO> listaResponse = listInventories.stream().map(i -> new InventoryVO(i.getName(), i.getDescription())).toList();
+        List<InventoryVO> listaResponse = listInventories.stream().map(i -> new InventoryVO(i.getId(), i.getName(), i.getDescription())).toList();
         return ResponseEntity.ok(listaResponse);
     }
 
@@ -43,7 +43,7 @@ public class InventoryController {
     @GetMapping("/{inventoryId}")
     public ResponseEntity<InventoryVO> findInventoryById(@PathVariable("inventoryId") Long idInventory){
         Inventory inventory =  this.inventoryServiceImpl.findInventoryById(idInventory);
-        InventoryVO inventoryVO = new InventoryVO(inventory.getName(), inventory.getDescription());
+        InventoryVO inventoryVO = new InventoryVO(inventory.getId(), inventory.getName(), inventory.getDescription());
         return ResponseEntity.status(HttpStatus.OK).body(inventoryVO);
     }
 }
