@@ -2,6 +2,7 @@ package com.cederj.uff.tcc.stockmaster.controllers.inventory;
 
 import com.cederj.uff.tcc.stockmaster.ServicesImpl.inventoryimpl.InventoryServiceImpl;
 import com.cederj.uff.tcc.stockmaster.dtos.inventory.CreatedInventoryDto;
+import com.cederj.uff.tcc.stockmaster.dtos.inventory.UpdateInventoryDto;
 import com.cederj.uff.tcc.stockmaster.vos.inventory.InventoryVO;
 import com.cederj.uff.tcc.stockmaster.models.inventory.Inventory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,5 +46,11 @@ public class InventoryController {
         Inventory inventory =  this.inventoryServiceImpl.findInventoryById(idInventory);
         InventoryVO inventoryVO = new InventoryVO(inventory.getId(), inventory.getName(), inventory.getDescription());
         return ResponseEntity.status(HttpStatus.OK).body(inventoryVO);
+    }
+
+    @PutMapping("/update/{inventoryId}")
+    public ResponseEntity<Void> updateInventoryById(@PathVariable("inventoryId") Long idInventory, @RequestBody UpdateInventoryDto data) {
+        this.inventoryServiceImpl.updateInventoryById(idInventory, data);
+        return ResponseEntity.ok().build();
     }
 }

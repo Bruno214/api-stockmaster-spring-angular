@@ -40,7 +40,6 @@ public class UserServiceImpl implements UserService {
         // validar se o user name que eu passei no token é o mesmo do id
         if (!user.getUsername().equals(authenticatedUserName)) {
             throw new RuntimeException("Token inválido para este user");
-
         }
 
         user.setName(userDto.name());

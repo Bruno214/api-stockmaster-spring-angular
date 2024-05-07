@@ -45,7 +45,16 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Override
     public void updateInventoryById(Long id, UpdateInventoryDto dado) {
-        System.out.println("testando o update inventory");
+        Optional<Inventory> optionalInventory = this.inventoryRepositoy.findById(id);
+
+        if (optionalInventory.isEmpty()) {
+            throw new RuntimeException("estoque não encontrado para o id informado");
+        }
+        Inventory inventory = optionalInventory.get();
+        inventory.setName(dado.name() != null && !dado.name().isBlank() ? dado.name() : inventory.getName());
+        inventory.setDescription(dado.description() != null && !dado.description().isBlank() ? dado.description() : inventory.getDescription());
+
+        this.inventoryRepositoy.save(inventory);
     }
 
     @Override
