@@ -8,8 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Entity
 @Table(name = "tb_item")
 @NoArgsConstructor
@@ -17,7 +15,7 @@ import java.util.List;
 @Data
 public class Item extends GenericModel {
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String name;
     @Column(nullable = false)
     private Double unitPrice;

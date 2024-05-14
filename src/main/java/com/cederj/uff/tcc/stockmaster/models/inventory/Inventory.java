@@ -2,6 +2,7 @@ package com.cederj.uff.tcc.stockmaster.models.inventory;
 
 import com.cederj.uff.tcc.stockmaster.models.GenericModel;
 import com.cederj.uff.tcc.stockmaster.models.Item.Item;
+import com.cederj.uff.tcc.stockmaster.models.transaction.Transaction;
 import com.cederj.uff.tcc.stockmaster.models.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -28,4 +29,7 @@ public class Inventory extends GenericModel {
 
     @OneToMany(mappedBy = "inventory")
     private List<Item> items;
+
+    @OneToMany(mappedBy = "inventory")
+    private List<Transaction> transactions;
 }
